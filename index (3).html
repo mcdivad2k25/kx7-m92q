@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100e17">
+<meta property="og:title" content="David × Ainhoa">
+<meta property="og:description" content="Un mes. Y qué bien, la verdad.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💛</text></svg>">
+<title>David × Ainhoa</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #100e17;
+  --pink: #f472b6;
+  --purple: #a78bfa;
+  --text: #f7f4ff;
+  --muted: #aaa4bc;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background:
+    radial-gradient(ellipse at 15% 10%, #44245b55, transparent 45%),
+    radial-gradient(ellipse at 90% 70%, #712c5940, transparent 40%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button { font-family: inherit; }
+
+#stars { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+
+.star {
+  position: absolute; color: var(--purple);
+  animation: rise linear forwards; opacity: 0; user-select: none;
+}
+.star.pink { color: var(--pink); }
+
+@keyframes rise {
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  15%  { opacity: .8; }
+  100% { transform: translateY(-110vh) rotate(180deg); opacity: 0; }
+}
+
+main { position: relative; z-index: 1; width: min(90%, 680px); margin: auto; padding: 35px 0 50px; }
+
+nav {
+  display: flex; justify-content: space-between; align-items: center;
+  color: var(--muted); font-size: .8rem; letter-spacing: 2px; padding: 12px 0 50px;
+}
+
+.dot {
+  display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+  background: #86efac; margin-right: 7px; box-shadow: 0 0 10px #86efac;
+}
+
+.hero { text-align: center; padding: 30px 0 65px; animation: enter 1s ease both; }
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tag {
+  display: inline-block; border: 1px solid #a78bfa55; background: #a78bfa12; color: #c4b5fd;
+  padding: 9px 15px; border-radius: 30px; font-size: .75rem; letter-spacing: 1px; margin-bottom: 30px;
+}
+
+h1 {
+  font-size: clamp(2.6rem, 9vw, 5.3rem); line-height: 1.15; letter-spacing: -3px; font-weight: 800;
+  background: linear-gradient(120deg, #fff 30%, #e9d5ff 60%, #fbcfe8);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+
+.heart {
+  display: inline-block; color: var(--pink); -webkit-text-fill-color: var(--pink);
+  text-shadow: 0 0 30px #fbbf2477; animation: pulse 1.5s infinite; cursor: pointer; user-select: none;
+}
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+
+.subtitle { color: var(--muted); margin-top: 22px; line-height: 1.8; font-size: 1rem; }
+
+.btn {
+  border: 0; padding: 14px 21px; border-radius: 12px; cursor: pointer;
+  font-weight: 700; font-size: .9rem; transition: .25s;
+}
+.btn:hover { transform: translateY(-3px); filter: brightness(1.12); }
+.btn:active { transform: translateY(0) scale(.98); }
+.btn:focus-visible, .heart:focus-visible { outline: 2px solid var(--purple); outline-offset: 3px; }
+
+.primary { background: linear-gradient(120deg, #c084fc, #f472b6); color: #1b1024; box-shadow: 0 6px 25px #c084fc22; }
+.hero .btn { margin-top: 30px; }
+
+.card {
+  background: linear-gradient(145deg, #211d2e, #191622);
+  border: 1px solid #ffffff12; border-radius: 22px;
+  padding: clamp(22px, 5vw, 32px); margin-bottom: 18px; box-shadow: 0 15px 50px #00000012;
+}
+
+.label { color: var(--purple); font-size: .73rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 14px; }
+h2 { font-size: 1.4rem; margin-bottom: 15px; letter-spacing: -.5px; }
+p { color: var(--muted); line-height: 1.9; font-size: .95rem; }
+
+/* CONTADOR */
+.counter { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-top: 23px; }
+.counter div {
+  background: #ffffff07; border: 1px solid #ffffff0b;
+  padding: 17px 4px; border-radius: 14px; text-align: center; min-width: 0;
+}
+.counter strong {
+  display: block; color: var(--pink); font-size: clamp(1.1rem, 4vw, 1.6rem);
+  margin-bottom: 6px; font-variant-numeric: tabular-nums;
+}
+.counter span { font-size: .65rem; color: var(--muted); }
+
+.note { margin-top: 18px; font-size: .78rem; color: #a78bfa; line-height: 1.8; }
+
+/* NOTAS */
+.intro { text-align: center; margin: 46px 0 26px; }
+.intro .label { margin-bottom: 10px; }
+.intro h2 { margin-bottom: 8px; }
+
+.thread { display: flex; flex-direction: column; gap: 6px; }
+
+.day {
+  align-self: center; font-size: .7rem; letter-spacing: 2px; color: var(--muted);
+  background: #ffffff09; border: 1px solid #ffffff10; padding: 6px 14px; border-radius: 20px;
+  margin: 26px 0 10px;
+}
+
+.msg {
+  max-width: 92%; align-self: flex-start;
+  background: linear-gradient(145deg, #2a2340, #211c33);
+  border: 1px solid #a78bfa26; border-radius: 6px 20px 20px 20px;
+  padding: 18px 20px; box-shadow: 0 10px 34px #00000030;
+  opacity: 0; transform: translateY(22px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.msg.in { opacity: 1; transform: none; }
+
+.msg .head {
+  display: block; font-size: .68rem; font-weight: 700; letter-spacing: 1.2px;
+  color: var(--purple); margin-bottom: 10px; line-height: 1.6;
+}
+.msg .body { color: #e7e0f5; font-size: .95rem; line-height: 1.8; white-space: pre-line; }
+.msg .body.sub { margin-top: 12px; }
+.msg .time { display: block; text-align: right; margin-top: 12px; font-size: .68rem; color: #8b84a0; }
+
+/* la nota larga */
+.msg.letter {
+  align-self: stretch; max-width: 100%; border-radius: 22px;
+  background: linear-gradient(145deg, #3a1f4d, #241a38);
+  border: 1px solid #f472b633; padding: clamp(22px, 5vw, 32px);
+}
+.msg.letter .head { color: var(--pink); }
+.msg.letter .body { color: #fbe8f3; line-height: 1.95; }
+
+.closing { text-align: center; margin-top: 40px; }
+
+#ultima {
+  display: none; margin-top: 26px; text-align: left;
+  background: linear-gradient(145deg, #3a1f4d, #241a38);
+  border: 1px solid #f472b633; border-radius: 20px;
+  padding: clamp(20px, 5vw, 28px);
+}
+#ultima.visible { display: block; animation: enter .8s ease both; }
+#ultima .head { display: block; font-size: .68rem; font-weight: 700; letter-spacing: 1.2px; color: var(--pink); margin-bottom: 12px; }
+#ultima .body { color: #fbe8f3; font-size: .95rem; line-height: 1.95; white-space: pre-line; }
+#ultima .time { display: block; text-align: right; margin-top: 14px; font-size: .68rem; color: #8b84a0; }
+
+/* MINIJUEGO: LOS 7 TOQUES */
+#campo {
+  position: relative; height: 280px; margin-top: 18px; border-radius: 18px; overflow: hidden;
+  background: linear-gradient(180deg, #ffffff05, #a78bfa10 70%, #a78bfa1f);
+  border: 1px solid #ffffff12; touch-action: manipulation;
+  user-select: none; -webkit-user-select: none;
+}
+#campo::after {
+  content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #f472b6aa, transparent);
+}
+#marcador {
+  position: absolute; top: 12px; left: 0; right: 0; text-align: center;
+  font-weight: 800; font-size: 1.6rem; color: var(--pink);
+  font-variant-numeric: tabular-nums; pointer-events: none;
+}
+#balon {
+  position: absolute; top: 0; left: 0; width: 64px; height: 64px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; will-change: transform; touch-action: manipulation;
+}
+#balon span { display: block; font-size: 44px; line-height: 1; pointer-events: none; }
+#juegoMsg {
+  position: absolute; left: 16px; right: 16px; top: 50%; transform: translateY(-50%);
+  text-align: center; color: #fbe8f3; font-weight: 600; line-height: 1.6;
+  pointer-events: none; opacity: 0; transition: opacity .4s;
+}
+#juegoMsg.visible { opacity: 1; }
+#btnJugar { margin-top: 18px; }
+
+footer { text-align: center; color: #716a82; font-size: .8rem; padding: 28px 0 8px; line-height: 2; }
+
+#toast {
+  position: fixed; z-index: 50; bottom: 22px; left: 50%; transform: translate(-50%, 20px); opacity: 0;
+  background: #282236; border: 1px solid #ffffff20; border-radius: 14px; padding: 13px 18px;
+  color: white; text-align: center; font-size: .85rem; width: max-content; max-width: 90%;
+  transition: .3s; pointer-events: none;
+}
+#toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+@media (max-width: 420px) {
+  h1 { letter-spacing: -2px; }
+  .counter { gap: 5px; }
+  .counter div { padding: 14px 2px; }
+  .counter span { font-size: .56rem; }
+  .msg { max-width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important; scroll-behavior: auto !important;
+  }
+  .msg { opacity: 1; transform: none; }
+}
+</style>
+</head>
+
+<body>
+
+<div id="stars" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<main>
+  <nav>
+    <span>D × A</span>
+    <span><i class="dot"></i> 01 MES</span>
+  </nav>
+
+  <header class="hero">
+    <div class="tag">UNA FECHA BASTANTE TOP</div>
+
+    <h1>
+      David <span class="heart" id="bigHeart" role="button" tabindex="0" aria-label="Corazón">💛</span>
+      Ainhoa
+    </h1>
+
+    <p class="subtitle">
+      Un mes contigo💛<br>
+ 
+    </p>
+
+    <button class="btn primary" onclick="irANotas()">
+      He hecho esto para ti ↗
+    </button>
+  </header>
+
+  <section class="card">
+
+    <h2>El tiempo que llevamos juntos.</h2>
+
+    <div class="counter">
+      <div><strong id="days">0</strong><span>DÍAS</span></div>
+      <div><strong id="hours">00</strong><span>HORAS</span></div>
+      <div><strong id="minutes">00</strong><span>MINUTOS</span></div>
+      <div><strong id="seconds">00</strong><span>SEGUNDOS</span></div>
+    </div>
+
+    <div class="note" id="counterMessage" aria-live="polite">
+      Calculando el tiempo juntos...
+    </div>
+  </section>
+
+  <section id="notas">
+    <div class="intro">
+      <div class="label">LOS MENSAJES</div>
+
+
+    </div>
+
+    <div class="thread">
+
+      <div class="day">07 · 09 · 2026</div>
+      <article class="msg">
+        <span class="head">ESTE MENSAJE HA SIDO CLARAMENTE PROGRAMADO</span>
+        <p class="body">Buenos díaas para nada me he puesto una alarma y me he despertado a las 6:30, para decirte que me voy a volver a dormir y desearte que se te dé bien el día, así que no respondas algo muy difícil, que si no el siguiente mensaje programado no va a tener sentido y voy a quedar fatal. Además, tampoco pienses que me gusta pensar en escucharte hablar de cualquier cosa el viernes .</p>
+        <p class="body sub">(Has visto cómo sí que sé usar los signos de puntuación)</p>
+      </article>
+
+      <div class="day">14 · 09 · 2026</div>
+      <article class="msg">
+        <span class="head">Este mensaje sí que sí está programado</span>
+        <p class="body">pero era para que supieras que me lo pasé muy bien el viernes y que me alegro mucho de haberte dicho lo mucho que me gustas, aunque sé que a mí me baja mucho lo de no hacer 7 toques con el balón eh, así que mientras yo compro pan, riego, reaprendo a escribir y practico lo de los toques, tú ten un buen día y semana haciendo que haces algo en la universidad además de beber y fumar.</p>
+      </article>
+
+      <div class="day">21 · 09 · 2026</div>
+      <article class="msg">
+        <span class="head">ESTE MENSAJE ES PROGRAMADO y está repensado después de lo de la correa</span>
+        <p class="body">Buenos días, feliz lunes, ten buena semana. (Sácame de pobre)</p>
+        <p class="body sub">No sé si te habrás dado cuenta, pero la verdad es que me gustas muchísimo, tampoco quiero decirlo todo el rato para no banalizarlo, pero me gusta cuando haces ragebait o cuando explicas cualquier cosa, cuando me preguntas qué pasa al quedarme mirándote, me gusta cuando veo tus notificaciones (la de Bizum sobre todo) y cuando explicas lo mal que uso la palabra larpear, aunque cada día tengo más claro que tú eres la que no sabe usarla</p>
+      </article>
+
+      <div class="day">28 · 09 · 2026</div>
+      <article class="msg letter">
+        <span class="head">LA RESPUESTA A "¿POR QUÉ QUERÍAS QUE FUESE TU NOVIA?"</span>
+        <p class="body">Me parece que el otro día me preguntaste por qué quería que fueses mi novia, así que lo he pensado y ahí va:
+
+Aunque el otro día bromeara con lo de Castillo, diciendo que no parabas de hablar, la verdad es que podría pasarme horas escuchándote. Me encanta que me expliques palabras que tú entiendes perfectamente y aprender de las cosas que te gustan a ti.
+
+Eres súper simpática y mega graciosa, y que te lleves tan bien con mis amigos es algo que también me flipa. Me encanta cuando muestras interés por mis cosas, aunque sean tonterías, y sobre todo saber que todavía me quedan tantas cosas por conocer de ti ,bueno a eso súmale tus ojazos aunque tu mirada me gusta más, el pelo tan bonito que tienes, unos labios preciosos, pues es normal que me gustes muchísimo.
+
+Y me alegro un montón de que me dijeras lo de te quiero por qué yo a ti también y me alegro enormemente de haberte pedido el insta.</p>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="card" id="juego" style="text-align:center">
+    <div class="label">UN RETO</div>
+    <h2>Los 7 toques.</h2>
+    <p>
+      Yo no llego. A ver tú.<br>
+      Toca el balón para que no caiga.
+    </p>
+
+    <div id="campo">
+      <div id="marcador" aria-live="polite">0 / 7</div>
+      <div id="balon" role="button" aria-label="Balón"><span>⚽</span></div>
+      <div id="juegoMsg" aria-live="polite"></div>
+    </div>
+
+    <button class="btn primary" id="btnJugar" onclick="empezarJuego()">Jugar ⚽</button>
+  </section>
+
+  <section class="card closing">
+    <div style="font-size:45px;margin-bottom:15px">🖤</div>
+    <h2>Feliz primer mes, Ainhoa.</h2>
+    <p>
+      Me alegro de que seas tú.<br>
+      Y ahora ven a darme un abrazo.
+    </p>
+    <button class="btn primary" style="margin-top:22px" onclick="finalEffect()">
+      Última sorpresa ✨
+    </button>
+
+    <!-- ESCRIBE AQUÍ LA NOTA NUEVA (el texto va dentro de <p class="body">, respeta los saltos de línea) -->
+    <article id="ultima" aria-live="polite">
+      <span class="head">Este si que no está programado</span>
+      <p class="body">Lo primero es que te quiero mucho, muchísimo, y que, aunque ya te lo he dicho, me alegro enormemente de haberte conocido. No paro de pensar en ti y me encanta saber que es recíproco.
+
+Nunca he conocido a una persona que me guste tanto como me gustas tú. Le doy gracias al David de pelo largo y bebido por no ser tan cortado para hablar un mínimo contigo en las fiestas y conocerte.
+
+Me encanta que me envíes mensajes y que me cuentes qué has hecho en el día, aunque a ti te parezca que has tenido un día aburrido, o que me hables sobre técnicas de pintura o de fotografía de las cuales no tengo ni idea. Me flipa escucharte en los audios, eres súper divertida a pesar del máximo vacile que me haces, pero viniendo de ti me gusta mucho. Y sobre todo, el saber que me quedan muchas cosas por conocer de ti, incluido ese gato que se hace el guapo.
+
+<CENTEr> 💛TE QUIERO MUCHO AINHOA 💛</CENTEr>
+    </article>
+  </section>
+
+  <footer>
+
+ 💛
+    <br>
+    <span style="color:#c084fc">D × A · 26.09</span>
+  </footer>
+</main>
+
+<script>
+// =============================================
+// CONTADOR REAL DE TIEMPO JUNTOS
+// 26 de septiembre de 2026 a las 02:00
+// Los meses de JavaScript van de 0 a 11. 8 = septiembre.
+// =============================================
+const fechaInicio = new Date(2026, 8, 26, 2, 0, 0);
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function sumarMeses(fecha, n) {
+  const d = new Date(fecha);
+  d.setMonth(d.getMonth() + n);
+  return d;
+}
+
+function actualizarContador() {
+  const ahora = new Date();
+  const diferencia = ahora - fechaInicio;
+  const $ = id => document.getElementById(id);
+  const msg = $('counterMessage');
+
+  if (diferencia < 0) {
+    ['days','hours','minutes','seconds'].forEach((id, i) => $(id).textContent = i ? '00' : '0');
+    msg.textContent = 'La cuenta empieza el 26 de septiembre a las 02:00. 💛';
+    return;
+  }
+
+  const total = Math.floor(diferencia / 1000);
+  const dias = Math.floor(total / 86400);
+
+  $('days').textContent = dias;
+  $('hours').textContent = String(Math.floor((total % 86400) / 3600)).padStart(2, '0');
+  $('minutes').textContent = String(Math.floor((total % 3600) / 60)).padStart(2, '0');
+  $('seconds').textContent = String(total % 60).padStart(2, '0');
+
+  // Hitos mensuales reales: 26 oct, 26 nov, ...
+  let meses = 1;
+  while (sumarMeses(fechaInicio, meses) <= ahora) meses++;
+  const hito = sumarMeses(fechaInicio, meses);
+
+  const faltan = Math.ceil((hito - ahora) / 86400000);
+
+  msg.textContent = meses === 1
+    ? `David 💛 Ainhoa · ${dias} días compartiendo historia. Faltan ${faltan} ${faltan === 1 ? 'día' : 'días'} para el mes.`
+    : `David 💛 Ainhoa · ${dias} días compartiendo historia. Y los que quedan.`;
+}
+
+actualizarContador();
+setInterval(actualizarContador, 1000);
+
+// =============================================
+// EFECTOS
+// =============================================
+const stars = document.getElementById('stars');
+const simbolos = ['💛', '✦', '✧', '💛', '·'];
+
+function particula(chars, minSize, maxSize, minDur, maxDur, life) {
+  if (reduceMotion) return;
+  const el = document.createElement('span');
+  el.className = 'star' + (Math.random() > .55 ? ' pink' : '');
+  el.textContent = chars[Math.floor(Math.random() * chars.length)];
+  el.style.left = Math.random() * 100 + 'vw';
+  el.style.bottom = '-30px';
+  el.style.fontSize = (minSize + Math.random() * (maxSize - minSize)) + 'px';
+  el.style.animationDuration = (minDur + Math.random() * (maxDur - minDur)) + 's';
+  stars.appendChild(el);
+  setTimeout(() => el.remove(), life);
+}
+
+setInterval(() => {
+  if (!document.hidden) particula(simbolos, 12, 32, 5, 11, 12000);
+}, 500);
+
+let toastTimeout;
+function toast(message) {
+  const el = document.getElementById('toast');
+  el.textContent = message;
+  el.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+function burst(amount) {
+  for (let i = 0; i < amount; i++) {
+    setTimeout(() => particula(['💛', '✦', '💛', '✧'], 18, 40, 2, 4, 5000), i * 35);
+  }
+}
+
+function irANotas() {
+  toast('Un detalle personalizado para ti, Ainhoa. 💛');
+  burst(25);
+  document.getElementById('notas').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function finalEffect() {
+  burst(100);
+  toast('D × A. TE QUIERO MUCHO. 💛');
+
+  const ultima = document.getElementById('ultima');
+  if (!ultima.classList.contains('visible')) {
+    ultima.classList.add('visible');
+    setTimeout(() => ultima.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+  }
+  if (!reduceMotion) {
+    document.querySelector('.hero').animate(
+      [{ transform: 'scale(1)' }, { transform: 'scale(1.035)' }, { transform: 'scale(1)' }],
+      { duration: 700, iterations: 2 }
+    );
+  }
+}
+
+// Easter egg: 5 toques al corazón grande
+let toques = 0;
+const bigHeart = document.getElementById('bigHeart');
+function tocarCorazon() {
+  toques++;
+  burst(6);
+  if (toques === 5) {
+    toast('Vale, ya lo he pillado: me quieres mucho 😏💛');
+    burst(70);
+    toques = 0;
+  }
+}
+bigHeart.addEventListener('click', tocarCorazon);
+bigHeart.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); tocarCorazon(); }
+});
+
+// =============================================
+// MINIJUEGO: LOS 7 TOQUES
+// Edita aquí los textos y la dificultad.
+// =============================================
+const OBJETIVO = 7;                 // toques para ganar
+const GRAVEDAD = 900;               // más alto = cae más rápido (más difícil)
+const IMPULSO = 540;                // fuerza de cada toque
+const MENSAJE_GANAR = '¡SIETE! Oficialmente mejor que yo con el balón. 💛';
+const MENSAJES_FALLO = [
+  'Casi. Yo tampoco llego 😅',
+  'Se te ha escapado. Otra vez.',
+  'Eso ha sido el viento.',
+  'Es más difícil de lo que parece, ¿eh?'
+];
+
+const campo = document.getElementById('campo');
+const balon = document.getElementById('balon');
+const balonIcono = balon.firstElementChild;
+const marcador = document.getElementById('marcador');
+const juegoMsg = document.getElementById('juegoMsg');
+const btnJugar = document.getElementById('btnJugar');
+const TAM_BALON = 64;
+
+let bx = 0, by = 0, vx = 0, vy = 0;
+let toquesJuego = 0, jugando = false, ultimoFrame = 0;
+
+marcador.textContent = `0 / ${OBJETIVO}`;
+
+function pintarBalon() {
+  balon.style.transform = `translate(${bx}px, ${by}px)`;
+}
+
+function balonEnReposo() {
+  bx = (campo.clientWidth - TAM_BALON) / 2;
+  by = campo.clientHeight - TAM_BALON;
+  vx = 0; vy = 0;
+  pintarBalon();
+}
+
+function mostrarMensajeJuego(texto) {
+  juegoMsg.textContent = texto;
+  juegoMsg.classList.add('visible');
+}
+
+function empezarJuego() {
+  toquesJuego = 0;
+  marcador.textContent = `0 / ${OBJETIVO}`;
+  juegoMsg.classList.remove('visible');
+  bx = (campo.clientWidth - TAM_BALON) / 2;
+  by = 10;
+  vx = (Math.random() - .5) * 80;
+  vy = 0;
+  jugando = true;
+  btnJugar.style.display = 'none';
+  ultimoFrame = performance.now();
+  requestAnimationFrame(bucleJuego);
+}
+
+function bucleJuego(t) {
+  if (!jugando) return;
+  const dt = Math.max(0, Math.min(0.04, (t - ultimoFrame) / 1000));
+  ultimoFrame = t;
+
+  vy += GRAVEDAD * dt;
+  by += vy * dt;
+  bx += vx * dt;
+
+  const maxX = campo.clientWidth - TAM_BALON;
+  if (bx < 0)    { bx = 0;    vx =  Math.abs(vx); }
+  if (bx > maxX) { bx = maxX; vx = -Math.abs(vx); }
+  if (by < 0)    { by = 0;    vy = Math.max(vy, 0); }
+
+  const suelo = campo.clientHeight - TAM_BALON;
+  if (by >= suelo) {
+    by = suelo;
+    pintarBalon();
+    perderJuego();
+    return;
+  }
+
+  pintarBalon();
+  requestAnimationFrame(bucleJuego);
+}
+
+function perderJuego() {
+  jugando = false;
+  mostrarMensajeJuego(MENSAJES_FALLO[Math.floor(Math.random() * MENSAJES_FALLO.length)]);
+  btnJugar.textContent = 'Otra vez';
+  btnJugar.style.display = '';
+}
+
+function ganarJuego() {
+  jugando = false;
+  mostrarMensajeJuego(MENSAJE_GANAR);
+  burst(90);
+  toast('7 toques. Me rindo. 💛');
+  balonEnReposo();
+  btnJugar.textContent = 'Jugar otra vez';
+  btnJugar.style.display = '';
+}
+
+balon.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  if (!jugando) return;
+  vy = -IMPULSO;
+  vx = (Math.random() - .5) * 160;
+  toquesJuego++;
+  marcador.textContent = `${toquesJuego} / ${OBJETIVO}`;
+  balonIcono.animate(
+    [{ transform: 'scale(1)' }, { transform: 'scale(1.3)' }, { transform: 'scale(1)' }],
+    { duration: 180 }
+  );
+  burst(1);
+  if (toquesJuego >= OBJETIVO) ganarJuego();
+});
+
+window.addEventListener('resize', () => { if (!jugando) balonEnReposo(); });
+balonEnReposo();
+
+// Los mensajes aparecen al hacer scroll; la carta larga lanza corazones
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    if (e.target.classList.contains('letter')) setTimeout(() => burst(18), 400);
+    io.unobserve(e.target);
+  });
+}, { threshold: .2 });
+
+document.querySelectorAll('.msg').forEach(m => io.observe(m));
+</script>
+
+</body>
+</html>
